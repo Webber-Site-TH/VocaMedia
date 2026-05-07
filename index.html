@@ -15,10 +15,48 @@
     </style>
 </head>
 <body>
-    <a href="Login.html">Login</a>
+    <a href="Login.html">Login</a> <a href="Ou.html">what is VTS?</a>
     <h1>Welcome to VocaTubeSong!</h1>
     <hr>
     <p>Videos:</p>
 
+    <script>
+    const authForm = document.getElementById('auth-form');
+
+    // 1. Al cargar la página: Ver si ya hay un usuario guardado
+    window.onload = () => {
+        const nombreGuardado = localStorage.getItem('usuario_vocaloid');
+        if (nombreGuardado) {
+            mostrarBienvenida(nombreGuardado);
+        }
+    };
+
+    // 2. Al enviar el formulario: Guardar los datos
+    authForm.onsubmit = (e) => {
+        e.preventDefault();
+        const nombre = document.getElementById('nombre').value;
+        
+        // Guardamos el nombre en la memoria del navegador
+        localStorage.setItem('usuario_vocaloid', nombre);
+        
+        mostrarBienvenida(nombre);
+    };
+
+    // 3. Función para cambiar el formulario por un saludo
+    function mostrarBienvenida(nombre) {
+        document.getElementById('auth-form').innerHTML = `
+            <h3>¡Hola, Productor ${nombre}!</h3>
+            <p>Ya puedes subir tu música.</p>
+            <button onclick="cerrarSesion()">Cerrar Sesión</button>
+        `;
+    }
+
+    // 4. Borrar la memoria para salir
+    function Log out() {
+        localStorage.removeItem('usuario_vocaloid');
+        location.reload(); // Recarga la página para mostrar el formulario vacío
+    }
+    </script>
+    
 </body>
 </html>
